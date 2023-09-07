@@ -1,142 +1,111 @@
-# streaming-02-multiple-processes
+# Name: Ash Hoskins - Student #S559245
+# Course CS-44-671
+# Module 2 Assignment 1
 
-> Multiple processes accessing a shared resource concurrently
+# Goal: Concurrent Processing and Shared Resources.
 
-## Overview
+## Module 2 Coding
 
-This example starts a shared database and multiple processes.
+At the end of this module students will be able to:
 
-The processes represent multiple users, or locations, or programs 
-hitting a shared database at the same time. 
-
-## Prerequisites
-
-1. Git
-1. Python 3.7+ (3.11+ preferred)
-1. VS Code Editor
-1. VS Code Extension: Python (by Microsoft)
-
-## Task 1. Fork 
-
-Fork this repository ("repo") into **your** GitHub account. 
-
-## Task 2. Clone
-
-Clone **your** new GitHub repo down to the Documents folder on your local machine. 
-
-## Task 3. Explore
-
-Explore your new project repo in VS Code on your local machine.
-
-## Task 4. Execute Check Script
-
-Execute 00_check_core.py to generate useful information.
-
-## Task 5. Execute Multiple Processes Project Script
-
-Execute multiple_processes.py.
-
-Read the output. Read the code. 
-Try to figure out what's going on. 
-
-1. What libraries did we import?
-1. Where do we set the TASK_DURATION_SECONDS?
-1. How many functions are defined? 
-1. What are the function names? 
-1. In general, what does each function do? 
-1. Where does the execution begin? Hint: generally at the end of the file.
-1. How many processes do we start?
-1. How many records does each process insert?
-
-In this first run, we start 3 processes, 
-each inserting 2 records into a shared database 
-(for a total of 6 records inserted.)
-
-In each case, the process gets a connection to the database, 
-and a cursor to execute SQL statements.
-It inserts a record, and exits the database quickly.
-
-In general, we're successful and six new records get inserted. 
-
-## Task 6. Execute Multiple Processes Script with Longer Tasks
-
-For the second run, modify the task duration to make each task take 3 seconds. 
-Hint: Look for the TODO.
-Run the script again. 
-With the longer tasks, we now get into trouble - 
-one process will have the database open and be working on it - 
-then when another process tries to do the same, it can't and 
-we end up with errors. 
-
-## Task 7. Document Results After Each Run
-
-To clear the terminal, in the terminal window, type clear and hit enter or return. 
-
-`clear`
-
-To document results, clear the terminal, run the script, and paste all of the terminal contents into the output file.
-
-Use out0.txt to document the first run. 
-
-Use out3.txt to document the second run.
+1. Define concurrency and multiprocessing. (L03)
+2. Describe multiprocessing issues and mitigations. (L03)
+3. Execute a script using multiprocessing to access a shared resource. (L04)
+4. Introduce locking issues on a shared resource. (L04)
+5. Write a script generate a stream from data-at-rest. (L02)
+ 
 
 
------
 
-## Helpful Information
+# streaming-02-getting-started
+In this project:
 
-To get more help on the early tasks, see [streaming-01-getting-started](https://github.com/denisecase/streaming-01-getting-started).
+You'll review how one multiprocessing example behaves when tasks are quick and sharing goes well (generally).
+You'll change to using longer-running concurrent tasks and explore what happens.
+You'll implement a scaffolded process that streams from a csv file. 
+You'll write your own streaming process that reads from a unique csv data source of your choice. 
+ 
 
-### Select All, Copy, Paste
+Multiprocessing
+In streaming, we often have multiple processes running concurrently (search this term as needed).
 
-On Windows the select all, copy, paste hotkeys are:
+In this example, we run all processes in a single terminal window using the multiprocessing package from the Python standard library.
+In later assignments, we'll start up different terminal windows for different applications. You'll want to know both approaches for maximum benefit.
+When running multiple terminals (later), you can use the integrated terminal in VS Code, or in Terminal (on a Mac). Explore the options and see what works best for you. 
+ 
 
-- CTRL a 
-- CTRL c 
-- CTRL v 
+Starter Repository
+Read the code and comments carefully - the code and comments are the main textbook for the course. We are very "hands on". 
 
-On a Mac the select all, copy, paste hotkeys are:
+https://github.com/denisecase/streaming-02-multiple-processesLinks to an external site.
+Additional resources:
 
-- Command a
-- Command c
-- Command v
+Module 0: Course Text
+Streaming and Sockets
+Module 0: FAQ
+ 
 
-Detailed copy/paste instructions (as needed)
+Do These General Tasks (Every Project)
+Fork the repo into your GitHub account.
+Clone your new repo down to your local machine.
+Run the about file to generate some information about your machine and your local Python setup. 
+Execute the project code files. 
+Read the code and comments carefully.
+Modify the examples as requested.
+Document your results - don't forget this key step! 
+Commit and push / sync your changes back up to GitHub
+Customize your README.md to reflect the focus, add your name and notes. 
+Customize and comment your code as recommended by the Python Style GuideLinks to an external site..
+Demonstrate your project and communication skills.
+ 
 
-1. To use these keys to transfer your output into a file, 
-clear the terminal, run the script, then click in the terminal to make it active.
-1. To select all terminal content, hold CTRL and the 'a' key together. 
-1. To copy the selected content, hold CTRL and the 'c' key together. 
-1. To paste, open the destination file (e.g. out0.py) for editing.
-1. Click somewhere in the destination file to make it the active window.
-1. Now hit CTRL a (both together) to select all of the destination file.
-1. Hit CTRL v (both together) to paste the content from your clipboard.
+Task 1 - Concurrent Multiprocessing Example (quick processes)
+Explore the output from concurrent processes.
 
-Do a web search to find helpful videos on anything that seems confusing
-and share them in our discussion.
+Were activities performed in order? Does the order vary on multiple runs? What would happen if a process - or machine - dies? Is information lost? These considerations are important when deciding how to implement distributed analytics solutions. 
+ 
 
-### Reading Error Messages
+Task 2 - Concurrent Multiprocessing Example (longer-running processes)
+Increase the time and see how things go.
 
-Python has pretty helpful error messages. 
-When you get an error, read them carefully. 
+What happens? 
+ 
 
-- What error do you get?
+Task 3 - Stream Processing Example
+Stream processing is different because the data is unbound - it could be infinite. Think tweets being generated in real time, or sensor data, like GPS, temperature, stocks, or web analytics. These are examples of "data in motion".
 
-### Database Is Locked Error
+copy process_streaming_0.py from the Module 1 repo.
+copy the other file you need to make it work. Hint: read the code. Look for the name of another (data) file to read from.
+This will simulate an infinite source of information, process it, and output a continuous steam of information. If all goes well - it will run for quite a while. Many processes run continuously until a failure occurs or the user stops the process by shutting it down, or interrupting it with Control C (to close).  See the Module 0: FAQ for more help. 
 
-Do a web search on the sqlite3 'database is locked' error.
+ 
 
-- What do you learn?
-- Once a process fails, it crashes the main process and everything stops. 
+Task 4 - Custom Stream from CSV Script
+Stream your own unique CSV data by modifying the example approach provided.
 
-### Deadlock
+Create a new Python script in your repo named process_streaming_yourname.py
+Create a new CSV file in your repo using any data you like.
+Stream from your CSV file into a new file named out9.txt.
+Use the examples provided as the basis for your implementation. 
+Generate one record every 1-3 seconds. Let it run long enough to write ten or more records to out9.txt.
+For the output file, either open a file for writing and have your code write to the file (as we did in Project 1) -  or you can manually copy and paste into the output file - or use logging like we did in project 1.  There are many output options. 
+Tell us which output option you chose - and why - in your submission.
+What changes did you have to make when reading from a different csv file? See Hint hereLinks to an external site.. 
 
-Deadlock is a special kind of locking issue where a process 
-is waiting on a resource or process, that is waiting also. 
+Task 5 - Learn about UDP and TCP 
+Python provides a standard library named socket that allows for the creation of both UDP and TCP sockets. You want to (a) be aware of UDP vs TCP and (b) be able to read and understand a project using either. 
 
-Rather than crashing, a system in deadlock may wait indefinitely, 
-with no process able to move forward and make progress.
+UDP
+UDP stands for User Datagram Protocol, and it is connectionless -  you just send the data without establishing a formal connection. 
+UDP is the easiest - just chunk up the data and send the chunks.
+UDP is somewhat casual - like getting multiple packages shipped from the Amazon warehouse to your porch. 
+UDP doesn’t guarantee delivery, order of the packets, or error checks.
+TCP
+TCP (Transmission Control Protocol) is connection-oriented, ensuring data integrity, order, and delivery acknowledgment.
+TCP is used for many of the primary internet functions, including web browsing and email.
+TCP includes a more elaborate set of greeting protocols conducted before transmission begins - much like the bows, courtesies, and/or handshakes often followed when beginning important diplomatic conversations. 
+To learn more about the TCP protocol, see the quiz this module and do a bit of searching.
+Learning many of the popular libraries, packages, and modules are why companies ask for years of experience in a language. The language syntax takes only hours or days to learn, but becoming aware of all the libraries available can take many years. Learning how to learn the ones you need is an important skill.
 
-### Learn More
 
-Check out Wikipedia's article on deadlock and other sources to learn how to prevent and avoid locking issues in concurrent processes. 
+> 
